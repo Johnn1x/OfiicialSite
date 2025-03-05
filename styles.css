@@ -2,8 +2,10 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #1a1a1a;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(45deg, #1a1a1a, #2a2a2a, #1a1a1a);
+    background-size: 200% 200%;
+    animation: gradientMove 15s ease infinite;
     color: #ffffff;
     display: flex;
     justify-content: center;
@@ -12,39 +14,50 @@ body {
     overflow-x: hidden;
 }
 
+/* Анимация фона */
+@keyframes gradientMove {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
 .container {
     text-align: center;
     padding: 20px;
-    max-width: 800px;
+    max-width: 900px;
     width: 100%;
+    position: relative;
 }
 
 /* Заголовок */
 .title {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
+    font-size: 4rem;
+    margin-bottom: 25px;
     color: #00b7ff;
-    animation: fadeInDown 1.5s ease-in-out;
+    text-shadow: 0 0 10px rgba(0, 183, 255, 0.5);
+    animation: pulse 2s infinite ease-in-out;
 }
 
-@keyframes fadeInDown {
-    0% { opacity: 0; transform: translateY(-50px); }
-    100% { opacity: 1; transform: translateY(0); }
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 /* Описание */
 .description {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: #cccccc;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     opacity: 0;
-    animation: fadeIn 2s ease-in-out forwards;
+    transform: translateY(20px);
+    animation: slideUp 1.5s ease forwards;
     animation-delay: 0.5s;
 }
 
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+@keyframes slideUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 /* Соцсети */
@@ -59,40 +72,65 @@ body {
     align-items: center;
     text-decoration: none;
     color: #00b7ff;
-    font-size: 1.1rem;
-    padding: 10px 20px;
-    border: 1px solid #00b7ff;
-    border-radius: 25px;
-    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    padding: 12px 25px;
+    border: 2px solid #00b7ff;
+    border-radius: 30px;
+    background: linear-gradient(90deg, transparent 50%, rgba(0, 183, 255, 0.2) 50%);
+    background-size: 200% 100%;
+    background-position: 100%;
+    transition: all 0.4s ease;
 }
 
 .social-link img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+    width: 22px;
+    height: 22px;
+    margin-right: 12px;
     filter: invert(70%) sepia(100%) saturate(1000%) hue-rotate(180deg);
 }
 
 .social-link:hover {
-    background-color: #00b7ff;
+    background-position: 0%;
     color: #1a1a1a;
-    transform: scale(1.05);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 183, 255, 0.7);
 }
 
 .social-link:hover img {
     filter: invert(10%);
 }
 
+/* Декоративная линия */
+.decor-line {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #00b7ff, transparent);
+    animation: glow 3s infinite ease-in-out;
+}
+
+@keyframes glow {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
 /* Адаптивность */
 @media (max-width: 600px) {
     .title {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
     }
     .description {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
     .social-link {
         font-size: 1rem;
-        padding: 8px 15px;
+        padding: 10px 20px;
+    }
+    .decor-line {
+        width: 70%;
     }
 }
