@@ -3,76 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя Студия</title>
+    <title>Studio X</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Общие стили */
-        body {
+        * {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: #fff;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #140b0b 0%, #1f1212 50%, #2b1a1a 100%);
+            background-size: 150% 150%;
+            color: #ffffff;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Контейнер для контента */
         .container {
             text-align: center;
-            padding: 50px 20px;
-        }
-
-        /* Заголовок */
-        h1 {
-            font-size: 48px;
-            color: #8b0000; /* Темно-красный цвет */
-            margin-bottom: 20px;
-        }
-
-        /* Описание */
-        p {
-            font-size: 18px;
-            color: #fff;
+            padding: 40px;
             max-width: 600px;
-            margin: 0 auto 30px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
         }
 
-        /* Кнопка Telegram */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .studio-name {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1.2px;
+            color: #ffffff;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gloss 2s infinite ease-in-out;
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes gloss {
+            0% { background-position: 100%; }
+            50% { background-position: 0%; }
+            100% { background-position: -100%; }
+        }
+
+        .studio-name:hover {
+            transform: scale(1.02);
+            animation-play-state: paused;
+        }
+
+        .description {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #ffffff;
+            margin-bottom: 35px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            animation-delay: 0.4s;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
         .telegram-btn {
             display: inline-block;
-            padding: 12px 24px;
-            background-color: #0088cc;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
+            padding: 15px 60px;
             font-size: 16px;
-            transition: background-color 0.3s;
+            font-weight: 700;
+            color: #ffffff;
+            /* Более темный Telegram-цвет с переливанием */
+            background: linear-gradient(90deg, #005566, #0077AA, #005566);
+            background-size: 200% 100%;
+            /* Более закругленные края */
+            border-radius: 60px;
+            text-decoration: none;
+            /* Минимальная тень без сильной выпуклости */
+            box-shadow: 0 2px 6px rgba(0, 119, 170, 0.2);
+            transition: transform 0.3s ease, background-position 0.3s ease, box-shadow 0.3s ease;
+            animation: glossBtn 3s infinite ease-in-out;
+        }
+
+        @keyframes glossBtn {
+            0% { background-position: 100%; }
+            50% { background-position: 0%; }
+            100% { background-position: -100%; }
         }
 
         .telegram-btn:hover {
-            background-color: #006b9f;
+            /* Небольшое увеличение */
+            transform: scale(1.05);
+            /* Легкое усиление тени для приятности */
+            box-shadow: 0 3px 8px rgba(0, 119, 170, 0.3);
+            background-position: 0%;
+            animation-play-state: paused;
         }
 
-        /* Футер */
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            font-size: 14px;
+        .telegram-btn:active {
+            /* Легкое сжатие */
+            transform: scale(0.98);
+            box-shadow: 0 1px 4px rgba(0, 119, 170, 0.2);
+        }
+
+        @media (max-width: 480px) {
+            .studio-name {
+                font-size: 48px;
+            }
+
+            .description {
+                font-size: 16px;
+            }
+
+            .telegram-btn {
+                padding: 12px 50px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Моя Студия</h1>
-        <p>Добро пожаловать в мою студию! Мы создаем уникальные проекты и помогаем воплощать ваши идеи в жизнь.</p>
-        <a href="https://t.me/yourusername" class="telegram-btn">Связаться в Telegram</a>
+        <h1 class="studio-name">Studio X</h1>
+        <p class="description">
+            Мы создаем уникальные проекты с душой и стилем. 
+            Ваши идеи — наша реализация. Давайте творить вместе!
+        </p>
+        <div class="buttons">
+            <a href="https://t.me/yourtelegram" target="_blank" class="telegram-btn">Telegram</a>
+        </div>
     </div>
-    <footer>
-        <p>&copy; 2023 Моя Студия. Все права защищены.</p>
-    </footer>
+
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            document.body.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
+        });
+
+        console.log("Studio X site loaded with enhancements");
+    </script>
 </body>
 </html>
