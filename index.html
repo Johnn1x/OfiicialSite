@@ -4,25 +4,134 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StudioName</title>
-  <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Базовые стили */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px;
+    }
+    /* Заголовок и описание */
+    .header {
+      padding: 60px 0 40px;
+    }
+    .title {
+      font-size: 4rem;
+      margin-bottom: 25px;
+      color: #00b7ff;
+      text-shadow: 0 0 10px rgba(0,183,255,0.5);
+    }
+    .description {
+      font-size: 1.3rem;
+      color: #cccccc;
+      margin-bottom: 40px;
+    }
+    /* Кнопка соцсети */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 1.2rem;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 50px;
+      background: #00b7ff;
+      box-shadow: 0 4px 6px rgba(0,183,255,0.3);
+      transition: box-shadow 0.3s ease;
+    }
+    .social-link img {
+      width: 22px;
+      height: 22px;
+      margin-right: 12px;
+      filter: invert(100%);
+    }
+    .social-link:hover {
+      box-shadow: 0 8px 12px rgba(0,183,255,0.5);
+    }
+    /* Секция преимуществ */
+    .pros {
+      background: rgba(0,183,255,0.1);
+      padding: 40px 20px;
+      margin: 20px 0 40px;
+      border-radius: 10px;
+    }
+    .pros-title {
+      font-size: 2.5rem;
+      color: #00b7ff;
+      margin-bottom: 20px;
+    }
+    .pros-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .pros-item {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 30px;
+    }
+    .pros-item:before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #00b7ff;
+      font-size: 1.2rem;
+      line-height: 1.2;
+    }
+    /* Футер */
+    .footer {
+      width: 100%;
+      padding: 20px 0;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.3);
+      font-size: 0.9rem;
+      color: #cccccc;
+    }
+    /* Адаптивность */
+    @media (max-width: 600px) {
+      .title { font-size: 2.8rem; }
+      .description { font-size: 1.1rem; }
+      .social-link { font-size: 1rem; padding: 10px 20px; }
+      .pros-title { font-size: 2rem; }
+    }
+  </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container">
+  <div class="container">
+    <header class="header">
       <h1 class="title">StudioName</h1>
       <p class="description">Инди-разработчики игр и приложений. Создаем миры, которые вдохновляют.</p>
       <div class="social-links">
         <a href="https://t.me/yourtelegram" target="_blank" class="social-link">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
-          Telegram
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"> Telegram
         </a>
       </div>
-    </div>
-  </header>
-
-  <section class="pros">
-    <div class="container">
+    </header>
+    <section class="pros">
       <h2 class="pros-title">Почему выбирают нас</h2>
       <ul class="pros-list">
         <li class="pros-item">Оригинальный дизайн и креативные решения</li>
@@ -30,13 +139,10 @@
         <li class="pros-item">Постоянное стремление к совершенству</li>
         <li class="pros-item">Официальный стиль без лишних понтов</li>
       </ul>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container">
+    </section>
+    <footer class="footer">
       <p>© 2025 StudioName. Все права защищены.</p>
-    </div>
-  </footer>
+    </footer>
+  </div>
 </body>
 </html>
