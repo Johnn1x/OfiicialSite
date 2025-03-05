@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio X</title>
+    <title>Johnn1x</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -72,7 +72,8 @@
             font-weight: 400;
             line-height: 1.6;
             color: #ffffff;
-            margin-bottom: 35px;
+            /* Увеличиваем отступ снизу для отделения кнопки */
+            margin-bottom: 50px;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
             animation-delay: 0.4s;
         }
@@ -89,13 +90,10 @@
             font-size: 16px;
             font-weight: 700;
             color: #ffffff;
-            /* Более темный Telegram-цвет с переливанием */
             background: linear-gradient(90deg, #005566, #0077AA, #005566);
             background-size: 200% 100%;
-            /* Более закругленные края */
             border-radius: 60px;
             text-decoration: none;
-            /* Минимальная тень без сильной выпуклости */
             box-shadow: 0 2px 6px rgba(0, 119, 170, 0.2);
             transition: transform 0.3s ease, background-position 0.3s ease, box-shadow 0.3s ease;
             animation: glossBtn 3s infinite ease-in-out;
@@ -108,16 +106,13 @@
         }
 
         .telegram-btn:hover {
-            /* Небольшое увеличение */
             transform: scale(1.05);
-            /* Легкое усиление тени для приятности */
             box-shadow: 0 3px 8px rgba(0, 119, 170, 0.3);
             background-position: 0%;
             animation-play-state: paused;
         }
 
         .telegram-btn:active {
-            /* Легкое сжатие */
             transform: scale(0.98);
             box-shadow: 0 1px 4px rgba(0, 119, 170, 0.2);
         }
@@ -129,6 +124,7 @@
 
             .description {
                 font-size: 16px;
+                margin-bottom: 40px; /* Чуть меньше на мобильных */
             }
 
             .telegram-btn {
@@ -140,10 +136,9 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="studio-name">Studio X</h1>
+        <h1 class="studio-name">Johnn1x</h1>
         <p class="description">
-            Мы создаем уникальные проекты с душой и стилем. 
-            Ваши идеи — наша реализация. Давайте творить вместе!
+            Социальные сети / Social Media
         </p>
         <div class="buttons">
             <a href="https://t.me/yourtelegram" target="_blank" class="telegram-btn">Telegram</a>
@@ -157,7 +152,7 @@
             document.body.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
         });
 
-        console.log("Studio X site loaded with enhancements");
+        console.log("Johnn1x site loaded with enhancements");
     </script>
 </body>
 </html>
