@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Johnn1x</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <!-- Предзагрузка шрифта для ускорения -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" as="style" onload="this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"></noscript>
     <style>
@@ -26,13 +25,11 @@
             position: relative;
         }
 
-        /* Тема 1: Бордовый стиль */
         body.theme1 {
             background: linear-gradient(135deg, #140b0b 0%, #1f1212 50%, #2b1a1a 100%);
             background-size: 150% 150%;
         }
 
-        /* Тема 2: Программирование с улучшенным кодом */
         body.theme2 {
             background: #0a0f14;
             position: relative;
@@ -65,7 +62,6 @@
             z-index: -1;
         }
 
-        /* Тема 3: Бордовый фон с адаптивной сеткой */
         body.theme3 {
             background: linear-gradient(135deg, #140b0b 0%, #1f1212 50%, #2b1a1a 100%);
             background-size: 150% 150%;
@@ -200,11 +196,20 @@
     </div>
 
     <script>
-        // Оптимизация загрузки
         document.addEventListener('DOMContentLoaded', () => {
-            const themes = ['theme1', 'theme2', 'theme3'];
-            const randomTheme = themes[Math.floor(Math.random() * themes.length)];
-            document.body.className = randomTheme;
+            // Выбор темы с весами вероятностей
+            const randomValue = Math.random();
+            let selectedTheme;
+
+            if (randomValue < 0.6) {
+                selectedTheme = 'theme1'; // 60%
+            } else if (randomValue < 0.9) {
+                selectedTheme = 'theme2'; // 30%
+            } else {
+                selectedTheme = 'theme3'; // 10%
+            }
+
+            document.body.className = selectedTheme;
 
             // Параллакс для тем 1 и 3
             let lastX = 0, lastY = 0;
@@ -212,7 +217,7 @@
                 if (document.body.className === 'theme1' || document.body.className === 'theme3') {
                     const x = (e.clientX / window.innerWidth - 0.5) * 20;
                     const y = (e.clientY / window.innerHeight - 0.5) * 20;
-                    if (Math.abs(lastX - x) > 1 || Math.abs(lastY - y) > 1) { // Ограничение частоты обновлений
+                    if (Math.abs(lastX - x) > 1 || Math.abs(lastY - y) > 1) {
                         document.body.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
                         lastX = x;
                         lastY = y;
@@ -221,7 +226,7 @@
             });
 
             // Сетка для темы 3
-            if (randomTheme === 'theme3') {
+            if (selectedTheme === 'theme3') {
                 const canvas = document.getElementById('gridCanvas');
                 const ctx = canvas.getContext('2d');
                 let width = window.innerWidth;
@@ -230,18 +235,16 @@
                 canvas.height = height;
 
                 const isMobile = width <= 480;
-                const gridSize = Math.min(Math.max(Math.floor(Math.min(width, height) / 15), 40), 60); // Адаптивный шаг
+                const gridSize = Math.min(Math.max(Math.floor(Math.min(width, height) / 15), 40), 60);
                 const nodes = [];
                 let mouse = { x: null, y: null, pressed: false };
 
-                // Создание узлов
                 for (let x = 0; x < width + gridSize; x += gridSize) {
                     for (let y = 0; y < height + gridSize; y += gridSize) {
                         nodes.push({ x, y, baseX: x, baseY: y, size: 1, glow: 0 });
                     }
                 }
 
-                // Обработка событий
                 window.addEventListener('mousemove', (e) => {
                     mouse.x = e.clientX;
                     mouse.y = e.clientY;
@@ -266,7 +269,6 @@
                     mouse.y = null;
                 });
 
-                // Анимация сетки
                 function animateGrid() {
                     ctx.clearRect(0, 0, width, height);
 
@@ -324,7 +326,6 @@
 
                 animateGrid();
 
-                // Обновление размеров при ресайзе
                 let resizeTimeout;
                 window.addEventListener('resize', () => {
                     clearTimeout(resizeTimeout);
@@ -344,7 +345,7 @@
                 });
             }
 
-            console.log(`Johnn1x site loaded with ${randomTheme}`);
+            console.log(`Johnn1x site loaded with ${selectedTheme}`);
         });
     </script>
 </body>
