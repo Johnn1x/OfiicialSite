@@ -201,13 +201,13 @@
             const randomValue = Math.random();
             let selectedTheme;
 
-            if (randomValue < 0.6) {
-                selectedTheme = 'theme1'; // 60%
-            } else if (randomValue < 0.9) {
-                selectedTheme = 'theme2'; // 30%
+            if (randomValue < 0.7) {
+                selectedTheme = 'theme1';
             } else {
-                selectedTheme = 'theme3'; // 10%
-            }
+                selectedTheme = 'theme2';
+            } //else {
+            //     selectedTheme = 'theme3'; // 10%
+            // }
 
             document.body.className = selectedTheme;
 
