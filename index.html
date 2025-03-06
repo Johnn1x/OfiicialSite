@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Johnn1x</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Предзагрузка шрифта для ускорения -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" as="style" onload="this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"></noscript>
     <style>
         * {
             margin: 0;
@@ -18,11 +21,65 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #140b0b 0%, #1f1212 50%, #2b1a1a 100%);
-            background-size: 150% 150%;
-            color: #ffffff;
+            color: #fff;
             overflow: hidden;
             position: relative;
+        }
+
+        /* Тема 1: Бордовый стиль */
+        body.theme1 {
+            background: linear-gradient(135deg, #140b0b 0%, #1f1212 50%, #2b1a1a 100%);
+            background-size: 150% 150%;
+        }
+
+        /* Тема 2: Программирование с улучшенным кодом */
+        body.theme2 {
+            background: #0a0f14;
+            position: relative;
+        }
+
+        body.theme2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(to bottom, rgba(50, 205, 50, 0.06) 0%, rgba(50, 205, 50, 0.03) 2px, transparent 2px, transparent 10px);
+            animation: codeRain 15s infinite linear;
+            z-index: -1;
+        }
+
+        body.theme2::after {
+            content: '101010 0xFF function processData(x) { return x * 2; } 0101 var user = { name: "John", id: 42 }; while(true) { console.log("loop"); } if(x > 0) { alert("positive"); } const PI = 3.14159; let arr = [1, 2, 3]; for(let i = 0; i < 10; i++) { arr.push(i); } 0011 class Code { constructor() { this.value = "dark"; } } async function fetchData() { await new Promise(r => setTimeout(r, 1000)); }';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: rgba(255, 255, 255, 0.03);
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            animation: codeFlow 20s infinite linear;
+            z-index: -1;
+        }
+
+        /* Тема 3: Бордовый фон с адаптивной сеткой */
+        body.theme3 {
+            background: linear-gradient(135deg, #140b0b 0%, #1f1212 50%, #2b1a1a 100%);
+            background-size: 150% 150%;
+            position: relative;
+        }
+
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: auto;
+            z-index: 0;
         }
 
         .container {
@@ -31,13 +88,22 @@
             max-width: 600px;
             opacity: 0;
             animation: fadeIn 1s ease forwards;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes codeRain {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100px; }
+        }
+
+        @keyframes codeFlow {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
         }
 
         .studio-name {
@@ -45,7 +111,7 @@
             font-weight: 700;
             margin-bottom: 20px;
             letter-spacing: 1.2px;
-            color: #ffffff;
+            color: #fff;
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
             background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
             background-size: 200% 100%;
@@ -71,8 +137,7 @@
             font-size: 18px;
             font-weight: 400;
             line-height: 1.6;
-            color: #ffffff;
-            /* Увеличиваем отступ снизу для отделения кнопки */
+            color: #fff;
             margin-bottom: 50px;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
             animation-delay: 0.4s;
@@ -89,7 +154,7 @@
             padding: 15px 60px;
             font-size: 16px;
             font-weight: 700;
-            color: #ffffff;
+            color: #fff;
             background: linear-gradient(90deg, #005566, #0077AA, #005566);
             background-size: 200% 100%;
             border-radius: 60px;
@@ -118,41 +183,169 @@
         }
 
         @media (max-width: 480px) {
-            .studio-name {
-                font-size: 48px;
-            }
-
-            .description {
-                font-size: 16px;
-                margin-bottom: 40px; /* Чуть меньше на мобильных */
-            }
-
-            .telegram-btn {
-                padding: 12px 50px;
-                font-size: 14px;
-            }
+            .studio-name { font-size: 48px; }
+            .description { font-size: 16px; margin-bottom: 40px; }
+            .telegram-btn { padding: 12px 50px; font-size: 14px; }
         }
     </style>
 </head>
 <body>
+    <canvas class="grid-overlay" id="gridCanvas"></canvas>
     <div class="container">
         <h1 class="studio-name">Johnn1x</h1>
-        <p class="description">
-            Социальные сети / Social Media
-        </p>
+        <p class="description">Социальные сети / Social Media</p>
         <div class="buttons">
             <a href="https://t.me/+baiH90iEX682YjYy" target="_blank" class="telegram-btn">Telegram</a>
         </div>
     </div>
 
     <script>
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 20;
-            const y = (e.clientY / window.innerHeight - 0.5) * 20;
-            document.body.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
-        });
+        // Оптимизация загрузки
+        document.addEventListener('DOMContentLoaded', () => {
+            const themes = ['theme1', 'theme2', 'theme3'];
+            const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+            document.body.className = randomTheme;
 
-        console.log("Johnn1x site loaded with enhancements");
+            // Параллакс для тем 1 и 3
+            let lastX = 0, lastY = 0;
+            document.addEventListener('mousemove', (e) => {
+                if (document.body.className === 'theme1' || document.body.className === 'theme3') {
+                    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+                    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+                    if (Math.abs(lastX - x) > 1 || Math.abs(lastY - y) > 1) { // Ограничение частоты обновлений
+                        document.body.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
+                        lastX = x;
+                        lastY = y;
+                    }
+                }
+            });
+
+            // Сетка для темы 3
+            if (randomTheme === 'theme3') {
+                const canvas = document.getElementById('gridCanvas');
+                const ctx = canvas.getContext('2d');
+                let width = window.innerWidth;
+                let height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+
+                const isMobile = width <= 480;
+                const gridSize = Math.min(Math.max(Math.floor(Math.min(width, height) / 15), 40), 60); // Адаптивный шаг
+                const nodes = [];
+                let mouse = { x: null, y: null, pressed: false };
+
+                // Создание узлов
+                for (let x = 0; x < width + gridSize; x += gridSize) {
+                    for (let y = 0; y < height + gridSize; y += gridSize) {
+                        nodes.push({ x, y, baseX: x, baseY: y, size: 1, glow: 0 });
+                    }
+                }
+
+                // Обработка событий
+                window.addEventListener('mousemove', (e) => {
+                    mouse.x = e.clientX;
+                    mouse.y = e.clientY;
+                });
+                window.addEventListener('mousedown', () => { mouse.pressed = true; });
+                window.addEventListener('mouseup', () => { mouse.pressed = false; });
+                window.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    const rect = canvas.getBoundingClientRect();
+                    mouse.x = e.touches[0].clientX - rect.left;
+                    mouse.y = e.touches[0].clientY - rect.top;
+                }, { passive: false });
+                window.addEventListener('touchstart', (e) => {
+                    const rect = canvas.getBoundingClientRect();
+                    mouse.x = e.touches[0].clientX - rect.left;
+                    mouse.y = e.touches[0].clientY - rect.top;
+                    mouse.pressed = true;
+                });
+                window.addEventListener('touchend', () => {
+                    mouse.pressed = false;
+                    mouse.x = null;
+                    mouse.y = null;
+                });
+
+                // Анимация сетки
+                function animateGrid() {
+                    ctx.clearRect(0, 0, width, height);
+
+                    nodes.forEach(node => {
+                        let dx = mouse.x - node.x;
+                        let dy = mouse.y - node.y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        let maxDistance = isMobile ? 80 : 120;
+
+                        if (distance < maxDistance && mouse.x !== null) {
+                            let force = (maxDistance - distance) / maxDistance;
+                            node.x = node.baseX - dx * force * 0.05;
+                            node.y = node.baseY - dy * force * 0.05;
+                            node.size = mouse.pressed ? 1.6 : 1.2;
+                            node.glow = force * 2;
+                        } else {
+                            node.x += (node.baseX - node.x) * 0.05;
+                            node.y += (node.baseY - node.y) * 0.05;
+                            node.size = 1;
+                            node.glow = 0;
+                        }
+
+                        ctx.beginPath();
+                        ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                        ctx.fill();
+                        if (node.glow > 0) {
+                            ctx.beginPath();
+                            ctx.arc(node.x, node.y, node.size + node.glow, 0, Math.PI * 2);
+                            ctx.fillStyle = `rgba(255, 255, 255, ${node.glow / 50})`;
+                            ctx.fill();
+                        }
+                    });
+
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+                    ctx.lineWidth = 0.5;
+                    for (let i = 0; i < nodes.length; i++) {
+                        for (let j = 0; j < nodes.length; j++) {
+                            if (i !== j) {
+                                let dx = nodes[i].x - nodes[j].x;
+                                let dy = nodes[i].y - nodes[j].y;
+                                let distance = Math.sqrt(dx * dx + dy * dy);
+                                if (distance < gridSize * 1.2) {
+                                    ctx.beginPath();
+                                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                                    ctx.stroke();
+                                }
+                            }
+                        }
+                    }
+
+                    requestAnimationFrame(animateGrid);
+                }
+
+                animateGrid();
+
+                // Обновление размеров при ресайзе
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        width = window.innerWidth;
+                        height = window.innerHeight;
+                        canvas.width = width;
+                        canvas.height = height;
+                        nodes.length = 0;
+                        const newGridSize = Math.min(Math.max(Math.floor(Math.min(width, height) / 15), 40), 60);
+                        for (let x = 0; x < width + newGridSize; x += newGridSize) {
+                            for (let y = 0; y < height + newGridSize; y += newGridSize) {
+                                nodes.push({ x, y, baseX: x, baseY: y, size: 1, glow: 0 });
+                            }
+                        }
+                    }, 100);
+                });
+            }
+
+            console.log(`Johnn1x site loaded with ${randomTheme}`);
+        });
     </script>
 </body>
 </html>
