@@ -198,20 +198,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Выбор темы с весами вероятностей
-document.addEventListener('DOMContentLoaded', () => {
-    // Проверяем, впервые ли пользователь на сайте
-            const isFirstVisit = !localStorage.getItem('hasVisited');
-            if (isFirstVisit) {
-                localStorage.setItem('hasVisited', 'true');
-                console.log('Это первый визит!');
-            } else {
-                console.log('Пользователь уже был здесь.');
-            }
-        
-            // Выбор темы с весами вероятностей
             const randomValue = Math.random();
             let selectedTheme;
-        
+
             if (randomValue < 0.6) {
                 selectedTheme = 'theme1'; // 60%
             } else if (randomValue < 0.9) {
@@ -219,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 selectedTheme = 'theme3'; // 10%
             }
-        
+
             document.body.className = selectedTheme;
 
             // Параллакс для тем 1 и 3
