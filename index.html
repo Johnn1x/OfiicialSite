@@ -23,17 +23,17 @@
             color: #fff;
             overflow: hidden;
             position: relative;
-
-            height: 100%; /* Фиксируем высоту на весь экран */
-            overflow: hidden; /* Отключаем прокрутку */
-            -webkit-overflow-scrolling: none; /* Отключаем инерцию на iOS */
+            height: 100%;
+            -webkit-overflow-scrolling: none;
         }
 
+        /* Тема 1: Градиент */
         body.theme1 {
             background: linear-gradient(135deg, #140b0b 0%, #1f1212 50%, #2b1a1a 100%);
             background-size: 150% 150%;
         }
 
+        /* Тема 2: Дождь кода */
         body.theme2 {
             background: #0a0f14;
             position: relative;
@@ -66,10 +66,22 @@
             z-index: -1;
         }
 
-        body.theme3 {
-            background: linear-gradient(135deg, #140b0b 0%, #1f1212 50%, #2b1a1a 100%);
-            background-size: 150% 150%;
+        /* Тема 5: Космическая пыль */
+        body.theme5 {
+            background: #0f0f1a;
             position: relative;
+            overflow: hidden;
+        }
+
+        body.theme5::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(50, 50, 80, 0.2) 0%, transparent 70%);
+            z-index: -1;
         }
 
         .grid-overlay {
@@ -205,20 +217,20 @@
             const randomValue = Math.random();
             let selectedTheme;
 
-            if (randomValue < 0.7) {
-                selectedTheme = 'theme1';
+            if (randomValue < 0.6) {
+                selectedTheme = 'theme1'; // 50%
+            } else if (randomValue < 0.80) {
+                selectedTheme = 'theme2'; // 35%
             } else {
-                selectedTheme = 'theme2';
-            } //else {
-            //     selectedTheme = 'theme3'; // 10%
-            // }
+                selectedTheme = 'theme5'; // 15%
+            }
 
             document.body.className = selectedTheme;
 
-            // Параллакс для тем 1 и 3
+            // Параллакс для темы 1
             let lastX = 0, lastY = 0;
             document.addEventListener('mousemove', (e) => {
-                if (document.body.className === 'theme1' || document.body.className === 'theme3') {
+                if (document.body.className === 'theme1') {
                     const x = (e.clientX / window.innerWidth - 0.5) * 20;
                     const y = (e.clientY / window.innerHeight - 0.5) * 20;
                     if (Math.abs(lastX - x) > 1 || Math.abs(lastY - y) > 1) {
@@ -229,8 +241,8 @@
                 }
             });
 
-            // Сетка для темы 3
-            if (selectedTheme === 'theme3') {
+            // Космическая пыль для темы 5
+            if (selectedTheme === 'theme5') {
                 const canvas = document.getElementById('gridCanvas');
                 const ctx = canvas.getContext('2d');
                 let width = window.innerWidth;
@@ -238,97 +250,39 @@
                 canvas.width = width;
                 canvas.height = height;
 
-                const isMobile = width <= 480;
-                const gridSize = Math.min(Math.max(Math.floor(Math.min(width, height) / 15), 40), 60);
-                const nodes = [];
-                let mouse = { x: null, y: null, pressed: false };
-
-                for (let x = 0; x < width + gridSize; x += gridSize) {
-                    for (let y = 0; y < height + gridSize; y += gridSize) {
-                        nodes.push({ x, y, baseX: x, baseY: y, size: 1, glow: 0 });
-                    }
+                const particles = [];
+                const particleCount = Math.floor(Math.min(width, height) / 5);
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        size: Math.random() * 2 + 0.5,
+                        speedX: (Math.random() - 0.5) * 0.2,
+                        speedY: (Math.random() - 0.5) * 0.2,
+                        opacity: Math.random() * 0.3 + 0.1
+                    });
                 }
 
-                window.addEventListener('mousemove', (e) => {
-                    mouse.x = e.clientX;
-                    mouse.y = e.clientY;
-                });
-                window.addEventListener('mousedown', () => { mouse.pressed = true; });
-                window.addEventListener('mouseup', () => { mouse.pressed = false; });
-                window.addEventListener('touchmove', (e) => {
-                    e.preventDefault();
-                    const rect = canvas.getBoundingClientRect();
-                    mouse.x = e.touches[0].clientX - rect.left;
-                    mouse.y = e.touches[0].clientY - rect.top;
-                }, { passive: false });
-                window.addEventListener('touchstart', (e) => {
-                    const rect = canvas.getBoundingClientRect();
-                    mouse.x = e.touches[0].clientX - rect.left;
-                    mouse.y = e.touches[0].clientY - rect.top;
-                    mouse.pressed = true;
-                });
-                window.addEventListener('touchend', () => {
-                    mouse.pressed = false;
-                    mouse.x = null;
-                    mouse.y = null;
-                });
-
-                function animateGrid() {
+                function animateDust() {
                     ctx.clearRect(0, 0, width, height);
 
-                    nodes.forEach(node => {
-                        let dx = mouse.x - node.x;
-                        let dy = mouse.y - node.y;
-                        let distance = Math.sqrt(dx * dx + dy * dy);
-                        let maxDistance = isMobile ? 80 : 120;
+                    particles.forEach(p => {
+                        p.x += p.speedX;
+                        p.y += p.speedY;
 
-                        if (distance < maxDistance && mouse.x !== null) {
-                            let force = (maxDistance - distance) / maxDistance;
-                            node.x = node.baseX - dx * force * 0.05;
-                            node.y = node.baseY - dy * force * 0.05;
-                            node.size = mouse.pressed ? 1.6 : 1.2;
-                            node.glow = force * 2;
-                        } else {
-                            node.x += (node.baseX - node.x) * 0.05;
-                            node.y += (node.baseY - node.y) * 0.05;
-                            node.size = 1;
-                            node.glow = 0;
-                        }
+                        if (p.x < 0 || p.x > width) p.speedX *= -1;
+                        if (p.y < 0 || p.y > height) p.speedY *= -1;
 
                         ctx.beginPath();
-                        ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
-                        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
                         ctx.fill();
-                        if (node.glow > 0) {
-                            ctx.beginPath();
-                            ctx.arc(node.x, node.y, node.size + node.glow, 0, Math.PI * 2);
-                            ctx.fillStyle = `rgba(255, 255, 255, ${node.glow / 50})`;
-                            ctx.fill();
-                        }
                     });
 
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-                    ctx.lineWidth = 0.5;
-                    for (let i = 0; i < nodes.length; i++) {
-                        for (let j = 0; j < nodes.length; j++) {
-                            if (i !== j) {
-                                let dx = nodes[i].x - nodes[j].x;
-                                let dy = nodes[i].y - nodes[j].y;
-                                let distance = Math.sqrt(dx * dx + dy * dy);
-                                if (distance < gridSize * 1.2) {
-                                    ctx.beginPath();
-                                    ctx.moveTo(nodes[i].x, nodes[i].y);
-                                    ctx.lineTo(nodes[j].x, nodes[j].y);
-                                    ctx.stroke();
-                                }
-                            }
-                        }
-                    }
-
-                    requestAnimationFrame(animateGrid);
+                    requestAnimationFrame(animateDust);
                 }
 
-                animateGrid();
+                animateDust();
 
                 let resizeTimeout;
                 window.addEventListener('resize', () => {
@@ -338,12 +292,17 @@
                         height = window.innerHeight;
                         canvas.width = width;
                         canvas.height = height;
-                        nodes.length = 0;
-                        const newGridSize = Math.min(Math.max(Math.floor(Math.min(width, height) / 15), 40), 60);
-                        for (let x = 0; x < width + newGridSize; x += newGridSize) {
-                            for (let y = 0; y < height + newGridSize; y += newGridSize) {
-                                nodes.push({ x, y, baseX: x, baseY: y, size: 1, glow: 0 });
-                            }
+                        particles.length = 0;
+                        const newParticleCount = Math.floor(Math.min(width, height) / 5);
+                        for (let i = 0; i < newParticleCount; i++) {
+                            particles.push({
+                                x: Math.random() * width,
+                                y: Math.random() * height,
+                                size: Math.random() * 2 + 0.5,
+                                speedX: (Math.random() - 0.5) * 0.2,
+                                speedY: (Math.random() - 0.5) * 0.2,
+                                opacity: Math.random() * 0.3 + 0.1
+                            });
                         }
                     }, 100);
                 });
